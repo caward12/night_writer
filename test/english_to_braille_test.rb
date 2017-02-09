@@ -2,68 +2,70 @@ require 'pry'
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/english_to_braille_converter'
+require './lib/english_to_braille'
 
 class EnglishToBrailleTest < Minitest::Test
   def test_it_can_split_letters
-  test = EnglishToBraille.new("the")
+  etb= EnglishToBraille.new("the")
 
-  assert_equal ["t", "h", "e"], test.separate_letters
+  assert_equal ["t", "h", "e"], etb.separate_letters
   end
 
   def test_it_can_swap_braille_for_english_letter
 
-    test = EnglishToBraille.new("cat")
-    test.separate_letters
+    etb = EnglishToBraille.new("cat")
+    etb.separate_letters
 
-    assert_equal [[["00", "..", ".."]], [["0.", "..", ".."]], [[".0", "00", "0."]]], test.swap_letters
+    assert_equal [[["00", "..", ".."]], [["0.", "..", ".."]], [[".0", "00", "0."]]], etb.swap_letters
   end
 
   def test_it_can_swap_braille_for_english_capital_letter
 
-    test = EnglishToBraille.new("CAT")
-    test.separate_letters
+    etb = EnglishToBraille.new("CAT")
+    etb.separate_letters
 
-    assert_equal [[["..00", "....", ".0.."]], [["..0.", "....", ".0.."]], [["...0", "..00", ".00."]]], test.swap_letters
+    assert_equal [[["..00", "....", ".0.."]], [["..0.", "....", ".0.."]], [["...0", "..00", ".00."]]], etb.swap_letters
   end
 
   def test_it_can_swap_numbers
 
-  test = EnglishToBraille.new("123")
-  test.separate_letters
+  etb = EnglishToBraille.new("123")
+  etb.separate_letters
 
-  assert_equal [[[".00.", ".0..", "00.."]], [[".00.", ".00.", "00.."]], [[".000", ".0..", "00.."]]], test.swap_letters
+  assert_equal [[[".00.", ".0..", "00.."]], [[".00.", ".00.", "00.."]], [[".000", ".0..", "00.."]]], etb.swap_letters
   end
 
   def test_it_can_swap_multiple_words
 
-    test = EnglishToBraille.new("the cat")
-    test.separate_letters
+    etb = EnglishToBraille.new("the cat")
+    etb.separate_letters
 
-    assert_equal [[[".0", "00", "0."]], [["0.", "00", ".."]], [["0.", ".0", ".."]], [["..", "..", ".."]], [["00", "..", ".."]], [["0.", "..", ".."]], [[".0", "00", "0."]]], test.swap_letters
+    assert_equal [[[".0", "00", "0."]], [["0.", "00", ".."]], [["0.", ".0", ".."]], [["..", "..", ".."]], [["00", "..", ".."]], [["0.", "..", ".."]], [[".0", "00", "0."]]], etb.swap_letters
   end
 
   def test_it_can_split_braille_into_three_lines
-    test = EnglishToBraille.new("cat")
-    test.output_lines
+    etb = EnglishToBraille.new("cat")
+    etb.output_lines
 
-    assert_equal ["00", "0.",".0"], test.first
-    assert_equal ["..", "..", "00"], test.second
-    assert_equal ["..", "..", "0."], test.third
+    assert_equal ["00", "0.",".0"], etb.first
+    assert_equal ["..", "..", "00"], etb.second
+    assert_equal ["..", "..", "0."], etb.third
   end
+
 
   def test_it_can_print_braille
 
-    test = EnglishToBraille.new("cat")
+    etb = EnglishToBraille.new("cat")
     # test.separate_letters
     # test.swap_letters
-    test.output_lines
+    etb.output_lines
 
     assert_equal +"000..0
 ....00
 ....0.
-", test.print_lines
+", etb.print_lines
   end
+
 
 
 end

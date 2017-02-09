@@ -20,7 +20,6 @@ class EnglishToBraille
     separate_letters.map do |letter|
        ALPHABET.fetch_values(letter)
     end
-
   end
 
   def output_lines
@@ -34,15 +33,14 @@ class EnglishToBraille
   end
 
   def print_lines
-    lines << first
-    lines << second
-    lines << third
 
+    n = first.join.length
     final_string = ""
       final_string << first.join + "\n"
       final_string << second.join + "\n"
       final_string << third.join + "\n"
     final_string
+
   end
-# binding.pry
+#inding.pry
 end
